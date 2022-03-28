@@ -1,6 +1,7 @@
+require('dotenv').config()
 const express = require('express');
 const { initializeConfigMiddlewares, initializeErrorMiddlwares } = require('./middlewares');
-const userRoutes = require('../controllers/user-routes');
+const routes = require('../router/routes');
 
 class WebServer {
   app = undefined;
@@ -21,7 +22,7 @@ class WebServer {
   }
 
   _initializeRoutes() {
-    this.app.use('/users', userRoutes.initializeRoutes());
+    this.app.use('', routes.initializeRoutes());
   }
 }
 
