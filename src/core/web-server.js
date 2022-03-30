@@ -10,6 +10,7 @@ class WebServer {
   constructor() {
     this.app = express();
 
+
     initializeConfigMiddlewares(this.app);
     this._initializeRoutes();
     initializeErrorMiddlwares(this.app);

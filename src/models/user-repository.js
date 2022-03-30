@@ -1,10 +1,7 @@
 const { users } = require('./db');
 const uuid = require('uuid');
 const bcrypt = require('bcryptjs');
-const express = require('express');
-const res = require('express/lib/response');
 const saltRounds = 12;
-
 
 exports.getUsers = () => {
   return users;

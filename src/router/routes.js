@@ -3,6 +3,9 @@ const router = express.Router();
 const userRepository = require('../models/user-repository');
 const authController = require('../controllers/auth')
 const authMiddleware =require('../core/authmiddleware')
+const validatorMiddleware =require('../core/validatormiddleware')
+
+
 
 
 router.get('/users/', authMiddleware.authToken,  (req, res) => {
@@ -23,7 +26,7 @@ router.post('/users/', authMiddleware.authAdmin, (req, res) => {
   userRepository.createUser(req, res);
 });
 
-router.post('/login',  (req, res) => {
+router.post('/login', validatorMiddleware.validateLogin, (req, res) => {
   authController.login(req, res);
 })
 

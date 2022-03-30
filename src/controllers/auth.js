@@ -1,12 +1,17 @@
 const bcrypt = require('bcryptjs');
-const saltRounds = 12;
 const userRepository = require('../models/user-repository');
 const jwt = require('jsonwebtoken');
-const res = require('express/lib/response');
+const { body, validationResult } = require('express-validator');
 const token_key = process.env.TOKEN_KEY
 const token_expiration = process.env.TOKEN_EXPIRATION
 
 exports.login = async (req, res) => {
+  body('firstName').not().isEmpty()
+  body('password').not().isEmpty()
+  const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
   const data = req.body
   const user = await userRepository.getUserByFirstName(data.firstName)
   if(!user) return res.status(404).send('User unknown')
